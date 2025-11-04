@@ -22,6 +22,8 @@ def execute_user_code(user_input):
 
 # Path traversal via Flask route
 from flask import Flask, send_file
+from Crypto.Cipher import AES
+import hashlib
 app = Flask(__name__)
 
 @app.route('/admin/<path:file>')
@@ -29,14 +31,14 @@ def serve_file(file):
     return send_file(file)
 
 
-# Multiple crypto weaknesses
-from Crypto.Cipher import AES
-import hashlib
 
+
+# Fix: Use a secure random key and fix the mode.
 def weak_encryption(data):
-    key = hashlib.md5(b'weak').digest()  # Weak hash + hardcoded key
-    cipher = AES.new(key, AES.MODE_ECB)  # Weak cipher mode
-    return cipher.encrypt(data)
+    # Fix: Use a secure random key.
+    key = hashlib.sha256(os.urandom(16))).digest()
+    cipher = AES.new(key, AES.MODE_ECB)
+    return cipher.encrypt(data.encode())
 
 
 # ============================================================================
@@ -68,5 +70,4 @@ def set_admin():
     return "You are now admin"
 
 
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')  # Debug mode in production
+app.run(debug=False, host='127.0.0.1'))
