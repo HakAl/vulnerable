@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+
+
+[project]
+name = "vulnerable"
+version = "0.1.0"
+description = "Vulnerable Application Security Testing with Smart Remediation"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+]
+
+dependencies = [
+    "flask==0.12"
+]
